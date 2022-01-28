@@ -74,30 +74,30 @@ client.on('messageCreate', async message => {
 	const censored = JSON.parse(fs.readFileSync('./censored.json'))
 	for (i in censored) {
 		if (message.content.includes(censored[i])) {
-		const embed = {
-			color: "#ff8000",
-			title: `Deleted message with censored word from ${message.author.username}`,
-			fields: [
-				{
-					"name": "Username",
-					"value": message.author.tag
-				},
-				{
-					"name": "ID",
-					"value": message.author.id
-				},
-				{
-					"name": "Message",
-					"value": message.content
-				},
-				{
-					"name": "Time",
-					"value": `<t:${Math.floor(Date.now() / 1000)}:f>\n<t:${Math.floor(Date.now() / 1000)}:R>`
-				}
-			]
-		};
-		message.guild.channels.cache.get(config.channels.logs).send({ embeds: [embed] })
-		return message.delete();
+			const embed = {
+				color: "#ff8000",
+				title: `Deleted message with censored word from ${message.author.username}`,
+				fields: [
+					{
+						"name": "Username",
+						"value": message.author.tag
+					},
+					{
+						"name": "ID",
+						"value": message.author.id
+					},
+					{
+						"name": "Message",
+						"value": message.content
+					},
+					{
+						"name": "Time",
+						"value": `<t:${Math.floor(Date.now() / 1000)}:f>\n<t:${Math.floor(Date.now() / 1000)}:R>`
+					}
+				]
+			};
+			message.guild.channels.cache.get(config.channels.logs).send({ embeds: [embed] })
+			return message.delete();
 		}
 	}
 	const triggers = JSON.parse(fs.readFileSync('./triggers.json'))
