@@ -3,6 +3,4 @@ config.json
 package-lock.json
 censored.json
 triggers.json
-
-# File to keep track of new features to add
-TODO
+deleted.txt
