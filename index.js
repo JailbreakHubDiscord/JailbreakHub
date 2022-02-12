@@ -76,6 +76,10 @@ client.on('messageDelete', async message => {
 					"value": message.content || 'Unknown'
 				},
 				{
+					"name": "Channel",
+					"value": `<#${message.channel.id}>` || 'Unknown'
+				},
+				{
 					"name": "Responsible Moderator",
 					"value": executor.tag || 'Unknown'
 				},
@@ -101,6 +105,10 @@ client.on('messageDelete', async message => {
 				{
 					"name": "Message",
 					"value": message.content || 'Unknown'
+				},
+				{
+					"name": "Channel",
+					"value": `<#${message.channel.id}>` || 'Unknown'
 				},
 				{
 					"name": "Time",
@@ -166,6 +174,10 @@ client.on('messageCreate', async message => {
 						"value": message.content
 					},
 					{
+						"name": "Channel",
+						"value": `<#${message.channel.id}>` || 'Unknown'
+					},
+					{
 						"name": "Harmful Site",
 						"value": site
 					},
@@ -183,6 +195,7 @@ client.on('messageCreate', async message => {
 	const censored = JSON.parse(fs.readFileSync('./censored.json'))
 	for (i in censored) {
 		if (message.content.includes(censored[i])) {
+			fs.writeFileSync('deleted.txt', 'true', 'utf-8')
 			const embed = {
 				color: "#ff8000",
 				title: `Deleted message with censored word from ${message.author.username}`,
@@ -198,6 +211,14 @@ client.on('messageCreate', async message => {
 					{
 						"name": "Message",
 						"value": message.content
+					},
+					{
+						"name": "Censored Word",
+						"value": censored[i] || 'Unknown'
+					},
+					{
+						"name": "Channel",
+						"value": `<#${message.channel.id}>` || 'Unknown'
 					},
 					{
 						"name": "Time",

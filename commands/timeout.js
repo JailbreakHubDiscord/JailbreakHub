@@ -23,20 +23,13 @@ module.exports = {
     ),
   async execute(interaction) {
     const target = interaction.options.getUser("target");
-    const duration =
-      interaction.options.getNumber("duration") * 1000 * 60 * 60 * 24;
+    const duration = interaction.options.getNumber("duration") * 1000 * 60 * 60 * 24;
     const reason = interaction.options.getString("reason") || "N/A";
-    const member =
-      interaction.guild.members.cache.get(target.id) ||
-      (await interaction.guild.members.fetch(target.id).catch((err) => {}));
-    const timeoutUntil = new Date(
-      new Date().getTime() + duration
-    ).toISOString();
+    const member = interaction.guild.members.cache.get(target.id) || (await interaction.guild.members.fetch(target.id).catch((err) => { }));
+    const timeoutUntil = new Date(new Date().getTime() + duration).toISOString();
     const memberRoles = interaction.member.roles.cache.map((r) => r.id);
-    if (!memberRoles.some((v) => config.allowRoles.includes(v)))
-      return interaction.reply(
-        "You do not have permission to execute this command!"
-      );
+    if (!memberRoles.some((v) => config.allowRoles.includes(v))) return interaction.reply("You do not have permission to execute this command!");
+		if (member.moderatable == false) return interaction.reply("Sorry, I can't timeout that user!")
 
     const embed = new MessageEmbed()
       .setColor("#ff8000")
@@ -80,19 +73,17 @@ module.exports = {
       .send({ embeds: [embed] });
 
     member.send(
-      `You were timed out in ${
-        config.server_name
+      `You were timed out in ${config.server_name
       }!\nReason: ${reason}\nDuration: ${interaction.options.getNumber(
         "duration"
       )} day(s)`
     );
 
     return interaction.reply({
-      content: `**Timed out ${
-        target.username
-      }**\nReason: ${reason}\nDuration: ${interaction.options.getNumber(
-        "duration"
-      )} day(s)`,
+      content: `**Timed out ${target.username
+        }**\nReason: ${reason}\nDuration: ${interaction.options.getNumber(
+          "duration"
+        )} day(s)`,
     });
   },
 };

@@ -15,14 +15,10 @@ module.exports = {
   async execute(interaction) {
     const target = interaction.options.getUser("target");
     const reason = interaction.options.getString("reason") || "N/A";
-    const member =
-      interaction.guild.members.cache.get(target.id) ||
-      (await interaction.guild.members.fetch(target.id).catch((err) => {}));
+    const member = interaction.guild.members.cache.get(target.id) || (await interaction.guild.members.fetch(target.id).catch((err) => {}));
     const memberRoles = interaction.member.roles.cache.map((r) => r.id);
-    if (!memberRoles.some((v) => config.allowRoles.includes(v)))
-      return interaction.reply(
-        "You do not have permission to execute this command!"
-      );
+    if (!memberRoles.some((v) => config.allowRoles.includes(v))) return interaction.reply("You do not have permission to execute this command!");
+		if (member.kickable == false) return interaction.reply("Sorry, I can't kick that user!")
 
     const embed = new MessageEmbed()
       .setColor("#ff8000")
