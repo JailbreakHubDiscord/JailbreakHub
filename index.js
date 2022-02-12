@@ -144,7 +144,7 @@ client.on('messageCreate', async message => {
 				fields: [
 					{
 						"name": "Username",
-						"value": message.author.tag
+						"value": message.author.tag || 'Unknown'
 					},
 					{
 						"name": "Time",
@@ -163,15 +163,15 @@ client.on('messageCreate', async message => {
 				fields: [
 					{
 						"name": "Username",
-						"value": message.author.tag
+						"value": message.author.tag || 'Unknown'
 					},
 					{
 						"name": "ID",
-						"value": message.author.id
+						"value": message.author.id || 'Unknown'
 					},
 					{
 						"name": "Message",
-						"value": message.content
+						"value": message.content || 'Unknown'
 					},
 					{
 						"name": "Channel",
@@ -179,7 +179,7 @@ client.on('messageCreate', async message => {
 					},
 					{
 						"name": "Harmful Site",
-						"value": site
+						"value": site || 'Unknown'
 					},
 					{
 						"name": "Time",
@@ -202,15 +202,15 @@ client.on('messageCreate', async message => {
 				fields: [
 					{
 						"name": "Username",
-						"value": message.author.tag
+						"value": message.author.tag || 'Unknown'
 					},
 					{
 						"name": "ID",
-						"value": message.author.id
+						"value": message.author.id || 'Unknown'
 					},
 					{
 						"name": "Message",
-						"value": message.content
+						"value": message.content || 'Unknown'
 					},
 					{
 						"name": "Censored Word",
